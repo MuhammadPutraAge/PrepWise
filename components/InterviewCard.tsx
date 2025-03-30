@@ -12,6 +12,7 @@ const InterviewCard = ({
   type,
   techstack,
   createdAt,
+  coverImage,
 }: InterviewCardProps) => {
   const feedback = null as Feedback | null;
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
@@ -28,7 +29,7 @@ const InterviewCard = ({
           </div>
 
           <Image
-            src={getRandomInterviewCover()}
+            src={coverImage}
             alt="cover image"
             width={90}
             height={90}
