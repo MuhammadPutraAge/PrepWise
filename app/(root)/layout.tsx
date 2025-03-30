@@ -12,7 +12,7 @@ const RootLayout = async ({ children }: Props) => {
   const isUserAuthenticated = await isAuthenticated();
 
   if (!isUserAuthenticated) {
-    redirect("/auth/sign-in");
+    redirect("/sign-in");
   }
 
   return (
