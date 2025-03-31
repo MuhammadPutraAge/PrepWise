@@ -1,6 +1,7 @@
 "use client";
 
 import { interviewer } from "@/constants";
+import { createFeedback } from "@/lib/actions/general.action";
 import { cn } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
 import Image from "next/image";
@@ -69,10 +70,11 @@ const Agent = ({
     async (messages: SavedMessage[]) => {
       console.log("Generating feedback...");
 
-      const { success, id } = {
-        success: true,
-        id: "feedback-id",
-      };
+      const { success, feedbackId: id } = await createFeedback({
+        interviewId: interviewId!,
+        userId: userId!,
+        transcript: messages,
+      });
 
       if (success && id) {
         router.push(`/interview/${interviewId}/feedback`);
@@ -81,7 +83,7 @@ const Agent = ({
         router.push("/");
       }
     },
-    [interviewId, router]
+    [interviewId, router, userId]
   );
 
   useEffect(() => {
