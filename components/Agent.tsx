@@ -26,6 +26,7 @@ const Agent = ({
   type,
   interviewId,
   questions,
+  feedbackId,
 }: AgentProps) => {
   const router = useRouter();
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -74,6 +75,7 @@ const Agent = ({
         interviewId: interviewId!,
         userId: userId!,
         transcript: messages,
+        feedbackId,
       });
 
       if (success && id) {
@@ -83,7 +85,7 @@ const Agent = ({
         router.push("/");
       }
     },
-    [interviewId, router, userId]
+    [feedbackId, interviewId, router, userId]
   );
 
   useEffect(() => {
