@@ -73,6 +73,11 @@ export const signIn = async (params: SignInParams) => {
   }
 };
 
+export const signOut = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("session");
+};
+
 export const getCurrentUser = async (): Promise<User | null> => {
   const cookieStore = await cookies();
 
