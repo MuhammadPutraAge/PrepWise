@@ -4,6 +4,8 @@ import Link from "next/link";
 import DisplayTechIcons from "./DisplayTechIcons";
 import { Button } from "./ui/button";
 import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
+import { getCurrentUser } from "@/lib/actions/auth.action";
+import { redirect } from "next/navigation";
 
 const InterviewCard = async ({
   id,
@@ -14,8 +16,11 @@ const InterviewCard = async ({
   createdAt,
   coverImage,
 }: InterviewCardProps) => {
+  const user = await getCurrentUser();
+  if (!user) redirect("/sign-in");
+
   const feedback =
-    userId && id
+    userId && user.id === userId && id
       ? await getFeedbackByInterviewId({ interviewId: id, userId })
       : null;
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
